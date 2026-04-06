@@ -1,0 +1,34 @@
+@HostAddress = http://localhost:5206
+
+GET {{HostAddress}}/api/patients?page=1&recordsPerpage=3&name=
+Accept: application/json
+
+###
+
+GET {{HostAddress}}/api/patients/46e850a6-8fce-4444-8fae-2a7ddc95cb64
+Accept: application/json
+
+###
+
+POST {{HostAddress}}/api/patients
+Content-Type: application/json
+
+{
+  "name": "Patient B",
+  "email": "pb@example.com"
+}
+
+###
+
+PUT {{HostAddress}}/api/patients/b0a5ed81-4f63-4083-968c-c67edd505e99
+Content-Type: application/json
+
+{
+  "name": "Patient C",
+  "Email": "pc@example.com"
+}
+
+###
+
+DELETE {{HostAddress}}/api/patients/b0a5ed81-4f63-4083-968c-c67edd505e99
+Content-Type: application/json

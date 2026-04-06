@@ -1,0 +1,47 @@
+@HostAddress = http://localhost:5206
+
+GET {{HostAddress}}/api/appointments?patientId=46e850a6-8fce-4444-8fae-2a7ddc95cb64&StartDate=2026-10-01T09:30:00&endDate=2026-10-02T09:45:00
+Accept: application/json
+
+###
+
+GET {{HostAddress}}/api/appointments/5cc13c1c-8347-4d6c-b629-639e095e8628
+Accept: application/json
+
+###
+
+POST {{HostAddress}}/api/appointments
+Content-Type: application/json
+
+{
+  "patientId": "4142117c-c6f9-4381-9e16-b55521fd0366",
+  "dentistId": "2cddaf5a-03b4-434b-9793-9a5b0da9100f",
+  "dentalOfficeId": "3b2f8a4a-fb99-4e30-ae2e-6d67d91bf9e3",
+  "startDate": "2026-10-02T09:30:00",
+  "endDate": "2026-10-02T09:45:00"
+}
+
+###
+
+PUT {{HostAddress}}/api/appointments/5cc13c1c-8347-4d6c-b629-639e095e8628
+Content-Type: application/json
+
+{
+  "name": "Dentist B2",
+  "Email": "db2@example.com"
+}
+
+###
+
+DELETE {{HostAddress}}/api/appointments/f0753643-862c-4f70-8384-6e70d0b1b9cf
+Content-Type: application/json
+
+###
+
+POST {{HostAddress}}/api/appointments/b9619862-a3ee-43d7-9f5a-d0738161cef0/complete
+Content-Type: application/json
+
+###
+
+POST {{HostAddress}}/api/appointments/5cc13c1c-8347-4d6c-b629-639e095e8628/cancel
+Content-Type: application/json
