@@ -1,6 +1,6 @@
 using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Features.Dentists.Queries.GetDentistsList;
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 using CleanTeeth.Persistence.Utilities;
 using Microsoft.EntityFrameworkCore;
 

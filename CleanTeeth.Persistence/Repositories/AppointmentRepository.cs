@@ -1,6 +1,6 @@
 using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Contracts.Repositories.Models;
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 using CleanTeeth.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 

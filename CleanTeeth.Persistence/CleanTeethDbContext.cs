@@ -1,6 +1,6 @@
 using CleanTeeth.Application.Contracts.Security;
 using CleanTeeth.Domain.Common;
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanTeeth.Persistence;

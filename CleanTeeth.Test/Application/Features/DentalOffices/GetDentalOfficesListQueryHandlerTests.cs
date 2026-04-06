@@ -1,6 +1,6 @@
 using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Features.DentalOffices.Queries.GetDentalOfficesList;
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 using NSubstitute;
 
 namespace CleanTeeth.Test.Application.Features.DentalOffices;

@@ -1,4 +1,4 @@
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 using CleanTeeth.Domain.Exceptions;
 
 namespace CleanTeeth.Test.Domain.Entities;

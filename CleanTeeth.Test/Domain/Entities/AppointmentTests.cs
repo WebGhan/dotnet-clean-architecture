@@ -1,4 +1,4 @@
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 using CleanTeeth.Domain.Enums;
 using CleanTeeth.Domain.Exceptions;
 using CleanTeeth.Domain.ValueObjects;

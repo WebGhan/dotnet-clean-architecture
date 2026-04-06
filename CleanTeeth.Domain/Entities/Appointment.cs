@@ -3,7 +3,7 @@ using CleanTeeth.Domain.Enums;
 using CleanTeeth.Domain.Exceptions;
 using CleanTeeth.Domain.ValueObjects;
 
-namespace CleanTeeth.Domain.Entites;
+namespace CleanTeeth.Domain.Entities;
 
 public class Appointment: Auditable
 {

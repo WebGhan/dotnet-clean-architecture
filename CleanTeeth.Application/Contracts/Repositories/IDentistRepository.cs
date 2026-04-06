@@ -1,5 +1,5 @@
 using CleanTeeth.Application.Features.Dentists.Queries.GetDentistsList;
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 
 namespace CleanTeeth.Application.Contracts.Repositories;
 

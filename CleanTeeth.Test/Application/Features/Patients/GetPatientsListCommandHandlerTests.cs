@@ -1,6 +1,6 @@
 using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Features.Patients.Queries.GetPatientsList;
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 using CleanTeeth.Domain.ValueObjects;
 using NSubstitute;
 

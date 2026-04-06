@@ -1,5 +1,5 @@
 using CleanTeeth.Application.Contracts.Repositories.Models;
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 
 namespace CleanTeeth.Application.Contracts.Repositories;
 

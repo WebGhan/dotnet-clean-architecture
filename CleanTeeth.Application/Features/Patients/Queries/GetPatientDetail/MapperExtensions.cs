@@ -1,4 +1,4 @@
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 
 namespace CleanTeeth.Application.Features.Patients.Queries.GetPatientDetail;
 

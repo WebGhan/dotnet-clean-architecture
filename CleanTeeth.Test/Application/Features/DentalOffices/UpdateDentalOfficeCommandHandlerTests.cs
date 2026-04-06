@@ -2,7 +2,7 @@ using CleanTeeth.Application.Contracts.Persistence;
 using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Exceptions;
 using CleanTeeth.Application.Features.DentalOffices.Commands.UpdateDentalOffice;
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NSubstitute.ReturnsExtensions;

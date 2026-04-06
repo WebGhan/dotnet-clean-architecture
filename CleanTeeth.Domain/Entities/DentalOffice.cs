@@ -1,7 +1,7 @@
 using CleanTeeth.Domain.Common;
 using CleanTeeth.Domain.Exceptions;
 
-namespace CleanTeeth.Domain.Entites;
+namespace CleanTeeth.Domain.Entities;
 
 public class DentalOffice: Auditable
 {

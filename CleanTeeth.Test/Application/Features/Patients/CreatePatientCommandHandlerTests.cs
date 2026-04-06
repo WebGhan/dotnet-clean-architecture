@@ -1,7 +1,7 @@
 using CleanTeeth.Application.Contracts.Persistence;
 using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Features.Patients.Commands.CreatePatient;
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 using CleanTeeth.Domain.ValueObjects;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;

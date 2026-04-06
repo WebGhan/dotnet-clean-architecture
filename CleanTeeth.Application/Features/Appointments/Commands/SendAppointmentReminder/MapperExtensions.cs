@@ -1,5 +1,5 @@
 using CleanTeeth.Application.Notifications;
-using CleanTeeth.Domain.Entites;
+using CleanTeeth.Domain.Entities;
 
 namespace CleanTeeth.Application.Features.Appointments.Commands.SendAppointmentReminder;
 
