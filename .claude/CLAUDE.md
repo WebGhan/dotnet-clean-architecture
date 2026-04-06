@@ -132,12 +132,11 @@ dotnet test --collect:"XPlat Code Coverage"
 
 ## Important Notes
 
-1. **目录拼写错误**: `CleanTeeth.Domain/Entites/` 目录有拼写错误（应为 `Entities/`）
-2. **自定义 Mediator**: 使用 `SimpleMediator` 而非 MediatR 库
-3. **审计字段**: 所有继承自 `Auditable` 的实体自动填充审计字段
-4. **错误处理**: 自定义 `ErrorHandlingMiddleware` 处理领域和验证异常
-5. **后台作业**: `AppointmentsReminderJob` 作为托管服务运行
-6. **分页**: API 端点通过 `HttpContext.InsertPaginationInformationInHeader()` 支持分页
+1. **自定义 Mediator**: 使用 `SimpleMediator` 而非 MediatR 库
+2. **审计字段**: 所有继承自 `Auditable` 的实体自动填充审计字段
+3. **错误处理**: 自定义 `ErrorHandlingMiddleware` 处理领域和验证异常
+4. **后台作业**: `AppointmentsReminderJob` 作为托管服务运行
+5. **分页**: API 端点通过 `HttpContext.InsertPaginationInformationInHeader()` 支持分页
 
 ## Testing Strategy
 
