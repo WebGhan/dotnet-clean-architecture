@@ -26,7 +26,7 @@ namespace CleanTeeth.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("CleanTeeth.Domain.Entites.DentalOffice", b =>
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.DentalOffice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace CleanTeeth.Persistence.Migrations
                     b.ToTable("DentalOffices");
                 });
 
-            modelBuilder.Entity("CleanTeeth.Domain.Entites.Dentist", b =>
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.Dentist", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace CleanTeeth.Persistence.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
-                    b.ComplexProperty<Dictionary<string, object>>("Email", "CleanTeeth.Domain.Entites.Dentist.Email#Email", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("Email", "CleanTeeth.Domain.Entities.Dentist.Email#Email", b1 =>
                         {
                             b1.IsRequired();
 
@@ -69,7 +69,7 @@ namespace CleanTeeth.Persistence.Migrations
                     b.ToTable("Dentists");
                 });
 
-            modelBuilder.Entity("CleanTeeth.Domain.Entites.Patient", b =>
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.Patient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,7 +80,7 @@ namespace CleanTeeth.Persistence.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
-                    b.ComplexProperty<Dictionary<string, object>>("Email", "CleanTeeth.Domain.Entites.Patient.Email#Email", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("Email", "CleanTeeth.Domain.Entities.Patient.Email#Email", b1 =>
                         {
                             b1.IsRequired();
 

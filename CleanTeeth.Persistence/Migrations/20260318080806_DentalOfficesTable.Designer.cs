@@ -25,7 +25,7 @@ namespace CleanTeeth.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("CleanTeeth.Domain.Entites.DentalOffice", b =>
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.DentalOffice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

@@ -23,7 +23,7 @@ namespace CleanTeeth.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("CleanTeeth.Domain.Entites.Appointment", b =>
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.Appointment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace CleanTeeth.Persistence.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.ComplexProperty<Dictionary<string, object>>("TimeInterval", "CleanTeeth.Domain.Entites.Appointment.TimeInterval#TimeInterval", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("TimeInterval", "CleanTeeth.Domain.Entities.Appointment.TimeInterval#TimeInterval", b1 =>
                         {
                             b1.IsRequired();
 
@@ -77,7 +77,7 @@ namespace CleanTeeth.Persistence.Migrations
                     b.ToTable("Appointments");
                 });
 
-            modelBuilder.Entity("CleanTeeth.Domain.Entites.DentalOffice", b =>
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.DentalOffice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -105,7 +105,7 @@ namespace CleanTeeth.Persistence.Migrations
                     b.ToTable("DentalOffices");
                 });
 
-            modelBuilder.Entity("CleanTeeth.Domain.Entites.Dentist", b =>
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.Dentist", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -128,7 +128,7 @@ namespace CleanTeeth.Persistence.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
-                    b.ComplexProperty<Dictionary<string, object>>("Email", "CleanTeeth.Domain.Entites.Dentist.Email#Email", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("Email", "CleanTeeth.Domain.Entities.Dentist.Email#Email", b1 =>
                         {
                             b1.IsRequired();
 
@@ -144,7 +144,7 @@ namespace CleanTeeth.Persistence.Migrations
                     b.ToTable("Dentists");
                 });
 
-            modelBuilder.Entity("CleanTeeth.Domain.Entites.Patient", b =>
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.Patient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -167,7 +167,7 @@ namespace CleanTeeth.Persistence.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
-                    b.ComplexProperty<Dictionary<string, object>>("Email", "CleanTeeth.Domain.Entites.Patient.Email#Email", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("Email", "CleanTeeth.Domain.Entities.Patient.Email#Email", b1 =>
                         {
                             b1.IsRequired();
 
@@ -183,21 +183,21 @@ namespace CleanTeeth.Persistence.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("CleanTeeth.Domain.Entites.Appointment", b =>
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.Appointment", b =>
                 {
-                    b.HasOne("CleanTeeth.Domain.Entites.DentalOffice", "DentalOffice")
+                    b.HasOne("CleanTeeth.Domain.Entities.DentalOffice", "DentalOffice")
                         .WithMany()
                         .HasForeignKey("DentalOfficeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CleanTeeth.Domain.Entites.Dentist", "Dentist")
+                    b.HasOne("CleanTeeth.Domain.Entities.Dentist", "Dentist")
                         .WithMany()
                         .HasForeignKey("DentistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CleanTeeth.Domain.Entites.Patient", "Patient")
+                    b.HasOne("CleanTeeth.Domain.Entities.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
