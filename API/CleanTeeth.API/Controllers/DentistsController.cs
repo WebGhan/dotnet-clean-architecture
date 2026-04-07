@@ -22,21 +22,21 @@ public class DentistsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<DentistDetailDto>> Get(Guid id)
+    public async Task<ActionResult<DentistDetailDto>> GetByIdAsync(Guid id)
     {
         var query = new GetDentistDetailQuery { Id = id };
         return await _mediator.Send(query);
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedResult<DentistsListDto>>> Get([FromQuery] GetDentistsListQuery query)
+    public async Task<ActionResult<PagedResult<DentistsListDto>>> GetListAsync([FromQuery] GetDentistsListQuery query)
     {
         var result = await _mediator.Send(query);
         return result;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] CreateDentistDto createDentistDto)
+    public async Task<IActionResult> CreateAsync([FromBody] CreateDentistDto createDentistDto)
     {
         var command = new CreateDentistCommand
         {
@@ -49,7 +49,7 @@ public class DentistsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(Guid id, [FromBody] UpdateDentistDto updateDentistDto)
+    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UpdateDentistDto updateDentistDto)
     {
         var command = new UpdateDentistCommand
         {
@@ -63,7 +63,7 @@ public class DentistsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> DeleteAsync(Guid id)
     {
         var command = new DeleteDentistCommand
         {

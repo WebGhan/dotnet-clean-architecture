@@ -22,7 +22,7 @@ public class AppointmentsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<AppointmentDetailDto>> Get(Guid id)
+    public async Task<ActionResult<AppointmentDetailDto>> GetByIdAsync(Guid id)
     {
         var query = new GetAppointmentDetailQuery
         {
@@ -33,14 +33,14 @@ public class AppointmentsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedResult<AppointmentsListDto>>> Get([FromQuery] GetAppointmentsListQuery query)
+    public async Task<ActionResult<PagedResult<AppointmentsListDto>>> GetListAsync([FromQuery] GetAppointmentsListQuery query)
     {
         var result = await _mediator.Send(query);
         return result;
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAppointment([FromBody] CreateAppointmentDto createAppointmentDto)
+    public async Task<IActionResult> CreateAsync([FromBody] CreateAppointmentDto createAppointmentDto)
     {
         var command = new CreateAppointmentCommand
         {
@@ -56,7 +56,7 @@ public class AppointmentsController : ControllerBase
     }
 
     [HttpPost("{id}/complete")]
-    public async Task<IActionResult> CompleteAppointment(Guid id)
+    public async Task<IActionResult> CompleteAsync(Guid id)
     {
         var command = new CompleteAppointmentCommand { Id = id };
         await _mediator.Send(command);
@@ -64,7 +64,7 @@ public class AppointmentsController : ControllerBase
     }
 
     [HttpPost("{id}/cancel")]
-    public async Task<IActionResult> CancelAppointment(Guid id)
+    public async Task<IActionResult> CancelAsync(Guid id)
     {
         var command = new CancelAppointmentCommand { Id = id };
         await _mediator.Send(command);

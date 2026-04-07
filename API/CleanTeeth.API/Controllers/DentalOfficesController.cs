@@ -23,14 +23,14 @@ public class DentalOfficesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedResult<DentalOfficesListDto>>> Get([FromQuery] GetDentalOfficesListQuery query)
+    public async Task<ActionResult<PagedResult<DentalOfficesListDto>>> GetListAsync([FromQuery] GetDentalOfficesListQuery query)
     {
         var result = await _mediator.Send(query);
         return result;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<DentalOfficeDetailDto>> Get(Guid id)
+    public async Task<ActionResult<DentalOfficeDetailDto>> GetByIdAsync(Guid id)
     {
         var query = new GetDentalOfficeDetailQuery { Id = id };
         var result = await _mediator.Send(query);
@@ -38,7 +38,7 @@ public class DentalOfficesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] CreateDentalOfficeDto createDentalOfficeDto)
+    public async Task<IActionResult> CreateAsync([FromBody] CreateDentalOfficeDto createDentalOfficeDto)
     {
         var command = new CreateDentalOfficeCommand { Name = createDentalOfficeDto.Name };
         await _mediator.Send(command);
@@ -46,7 +46,7 @@ public class DentalOfficesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(Guid id, [FromBody] UpdateDentalOfficeDto updateDentalOfficeDto)
+    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UpdateDentalOfficeDto updateDentalOfficeDto)
     {
         var command = new UpdateDentalOfficeCommand
         {
@@ -59,7 +59,7 @@ public class DentalOfficesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> DeleteAsync(Guid id)
     {
         var command = new DeleteDentalOfficeCommand { Id = id };
         await _mediator.Send(command);

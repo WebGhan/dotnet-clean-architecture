@@ -22,21 +22,21 @@ public class PatientsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<PatientDetailDto>> GetPatientDetail(Guid id)
+    public async Task<ActionResult<PatientDetailDto>> GetByIdAsync(Guid id)
     {
         var query = new GetPatientDetailQuery { Id = id };
         return await _mediator.Send(query);
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedResult<PatientListDto>>> Get([FromQuery] GetPatientsListQuery query)
+    public async Task<ActionResult<PagedResult<PatientListDto>>> GetListAsync([FromQuery] GetPatientsListQuery query)
     {
         var result = await _mediator.Send(query);
         return result;
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreatePatient([FromBody] CreatePatientDto createPatientDto)
+    public async Task<IActionResult> CreateAsync([FromBody] CreatePatientDto createPatientDto)
     {
         var command = new CreatePatientCommand
         {
@@ -49,7 +49,7 @@ public class PatientsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdatePatient(Guid id, [FromBody] UpdatePatientDto updatePatientDto)
+    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UpdatePatientDto updatePatientDto)
     {
         var command = new UpdatePatientCommand
         {
@@ -63,7 +63,7 @@ public class PatientsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeletePatient(Guid id)
+    public async Task<IActionResult> DeleteAsync(Guid id)
     {
         var command = new DeletePatientCommand { Id = id };
         await _mediator.Send(command);
