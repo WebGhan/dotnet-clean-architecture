@@ -4,7 +4,7 @@ using CleanTeeth.Application.Utilities.Common;
 
 namespace CleanTeeth.Application.Features.Patients.Queries.GetPatientsList;
 
-public class GetPatientsListQueryHandler: IRequestHandler<GetPatientsListQuery, PaginatedDto<PatientListDto>>
+public class GetPatientsListQueryHandler: IRequestHandler<GetPatientsListQuery, PagedResult<PatientListDto>>
 {
     private readonly IPatientRepository _repository;
 
@@ -13,18 +13,20 @@ public class GetPatientsListQueryHandler: IRequestHandler<GetPatientsListQuery, 
         _repository = repository;
     }
 
-    public async Task<PaginatedDto<PatientListDto>> Handle(GetPatientsListQuery request)
+    public async Task<PagedResult<PatientListDto>> Handle(GetPatientsListQuery request)
     {
         var patients = await _repository.GetFiltered(request);
-        var totalAmountOfRecords = await _repository.GetTotalAmountOfRecords();
+        var totalCount = await _repository.GetFilteredCount(request);
         var patientsDto = patients.Select(patient => patient.ToDto()).ToList();
 
-        var paginatedDto = new PaginatedDto<PatientListDto>
+        var pagedResult = new PagedResult<PatientListDto>
         {
-            Elements = patientsDto,
-            TotalAmountOfRecords = totalAmountOfRecords,
+            Items = patientsDto,
+            TotalCount = totalCount,
+            Page = request.Page,
+            PageSize = request.PageSize
         };
-        
-        return paginatedDto;
+
+        return pagedResult;
     }
 }

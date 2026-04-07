@@ -1,9 +1,10 @@
 using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Utilities;
+using CleanTeeth.Application.Utilities.Common;
 
 namespace CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentsList;
 
-public class GetAppointmentsListQueryHandler : IRequestHandler<GetAppointmentsListQuery, List<AppointmentsListDto>>
+public class GetAppointmentsListQueryHandler : IRequestHandler<GetAppointmentsListQuery, PagedResult<AppointmentsListDto>>
 {
     private readonly IAppointmentRepository _repository;
 
@@ -12,10 +13,20 @@ public class GetAppointmentsListQueryHandler : IRequestHandler<GetAppointmentsLi
         _repository = repository;
     }
 
-    public async Task<List<AppointmentsListDto>> Handle(GetAppointmentsListQuery request)
+    public async Task<PagedResult<AppointmentsListDto>> Handle(GetAppointmentsListQuery request)
     {
         var appointments = await _repository.GetFiltered(request);
+        var totalCount = await _repository.GetFilteredCount(request);
         var appointmentsDto = appointments.Select(appointment => appointment.ToDto()).ToList();
-        return appointmentsDto;
+
+        var pagedResult = new PagedResult<AppointmentsListDto>
+        {
+            Items = appointmentsDto,
+            TotalCount = totalCount,
+            Page = request.Page,
+            PageSize = request.PageSize
+        };
+
+        return pagedResult;
     }
 }

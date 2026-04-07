@@ -2,6 +2,7 @@ using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Contracts.Repositories.Models;
 using CleanTeeth.Domain.Entities;
 using CleanTeeth.Domain.Enums;
+using CleanTeeth.Persistence.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanTeeth.Persistence.Repositories;
@@ -33,7 +34,21 @@ public class AppointmentRepository : Repository<Appointment>, IAppointmentReposi
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<IEnumerable<Appointment>> GetFiltered(AppointmentsFilterDto appointmentsFilterDto)
+    public async Task<IEnumerable<Appointment>> GetFiltered(AppointmentsFilterDto filter)
+    {
+        var queryable = BuildFilteredQuery(filter);
+        return await queryable.OrderBy(x => x.TimeInterval.Start)
+            .Paginate(filter.Page, filter.PageSize)
+            .ToListAsync();
+    }
+
+    public async Task<int> GetFilteredCount(AppointmentsFilterDto filter)
+    {
+        var queryable = BuildFilteredQuery(filter);
+        return await queryable.CountAsync();
+    }
+
+    private IQueryable<Appointment> BuildFilteredQuery(AppointmentsFilterDto filter)
     {
         var queryable = _dbContext.Appointments
             .Include(x => x.DentalOffice)
@@ -41,30 +56,30 @@ public class AppointmentRepository : Repository<Appointment>, IAppointmentReposi
             .Include(x => x.Patient)
             .AsQueryable();
 
-        if (appointmentsFilterDto.DentalOfficeId is not null)
+        if (filter.DentalOfficeId is not null)
         {
-            queryable = queryable.Where(x => x.DentalOfficeId == appointmentsFilterDto.DentalOfficeId);
+            queryable = queryable.Where(x => x.DentalOfficeId == filter.DentalOfficeId);
         }
 
-        if (appointmentsFilterDto.DentistId is not null)
+        if (filter.DentistId is not null)
         {
-            queryable = queryable.Where(x => x.DentistId == appointmentsFilterDto.DentistId);
+            queryable = queryable.Where(x => x.DentistId == filter.DentistId);
         }
 
-        if (appointmentsFilterDto.PatientId is not null)
+        if (filter.PatientId is not null)
         {
-            queryable = queryable.Where(x => x.PatientId == appointmentsFilterDto.PatientId);
+            queryable = queryable.Where(x => x.PatientId == filter.PatientId);
         }
 
-        if (appointmentsFilterDto.AppointmentStatus is not null)
+        if (filter.AppointmentStatus is not null)
         {
-            queryable = queryable.Where(x => x.Status == appointmentsFilterDto.AppointmentStatus);
+            queryable = queryable.Where(x => x.Status == filter.AppointmentStatus);
         }
 
-        return await queryable.Where(x =>
-                x.TimeInterval.Start >= appointmentsFilterDto.StartDate.UtcDateTime &&
-                x.TimeInterval.End <= appointmentsFilterDto.EndDate.UtcDateTime)
-            .OrderBy(x => x.TimeInterval.Start)
-            .ToListAsync();
+        queryable = queryable.Where(x =>
+            x.TimeInterval.Start >= filter.StartDate.UtcDateTime &&
+            x.TimeInterval.End <= filter.EndDate.UtcDateTime);
+
+        return queryable;
     }
 }

@@ -1,8 +1,9 @@
+using CleanTeeth.Application.Utilities.Common;
 using CleanTeeth.Domain.Enums;
 
 namespace CleanTeeth.Application.Contracts.Repositories.Models;
 
-public class AppointmentsFilterDto
+public class AppointmentsFilterDto : PagedFilterDto
 {
     public Guid? PatientId { get; set; }
     public Guid? DentistId { get; set; }

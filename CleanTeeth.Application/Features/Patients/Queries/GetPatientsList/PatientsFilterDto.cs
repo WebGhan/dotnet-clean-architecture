@@ -1,9 +1,9 @@
+using CleanTeeth.Application.Utilities.Common;
+
 namespace CleanTeeth.Application.Features.Patients.Queries.GetPatientsList;
 
-public class PatientsFilterDto
+public class PatientsFilterDto : PagedFilterDto
 {
-    public int Page { get; set; } = 1;
-    public int RecordsPerPage { get; set; } = 10;
     public string? Name { get; set; }
     public string? Email { get; set; }
 }

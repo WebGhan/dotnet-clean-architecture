@@ -17,6 +17,20 @@ public class DentistRepository : Repository<Dentist>, IDentistRepository
 
     public async Task<IEnumerable<Dentist>> GetFiltered(DentistsFilterDto filter)
     {
+        var queryable = BuildFilteredQuery(filter);
+        return await queryable.OrderBy(p => p.Name)
+            .Paginate(filter.Page, filter.PageSize)
+            .ToListAsync();
+    }
+
+    public async Task<int> GetFilteredCount(DentistsFilterDto filter)
+    {
+        var queryable = BuildFilteredQuery(filter);
+        return await queryable.CountAsync();
+    }
+
+    private IQueryable<Dentist> BuildFilteredQuery(DentistsFilterDto filter)
+    {
         var queryable = _dbContext.Dentists.AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(filter.Name))
@@ -29,8 +43,6 @@ public class DentistRepository : Repository<Dentist>, IDentistRepository
             queryable = queryable.Where(p => p.Email.Value.Contains(filter.Email));
         }
 
-        return await queryable.OrderBy(p => p.Name)
-            .Paginate(filter.Page, filter.RecordsPerPage)
-            .ToListAsync();
+        return queryable;
     }
 }

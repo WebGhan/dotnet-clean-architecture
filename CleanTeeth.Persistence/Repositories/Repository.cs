@@ -40,8 +40,4 @@ public class Repository<T> : IRepository<T> where T : class
         return Task.CompletedTask;
     }
 
-    public async Task<int> GetTotalAmountOfRecords()
-    {
-        return await _dbContext.Set<T>().CountAsync();
-    }
 }

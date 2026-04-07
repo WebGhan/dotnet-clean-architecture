@@ -22,7 +22,7 @@ CleanTeeth 是一个基于 .NET 8 的牙科预约管理系统，采用整洁架�
      - `Commands/` - 命令处理器和验证器
      - `Queries/` - 查询处理器和 DTOs
    - `Contracts/` - 仓储、安全和持久化的接口
-   - `Utilities/` - 自定义 Mediator 实现（`IMediator`, `SimpleMediator`）
+   - `Utilities/` - 自定义 Mediator 实现（`IMediator`, `SimpleMediator`）和分页工具（`PagedResult<T>`, `PagedFilterDto`）
    - `Exceptions/` - 应用层异常
 
 3. **Infrastructure Layer** (`CleanTeeth.Infrastructure`) - 外部服务实现
@@ -51,6 +51,7 @@ CleanTeeth 是一个基于 .NET 8 的牙科预约管理系统，采用整洁架�
 
 - **CQRS**: 命令和查询在 `Features/` 目录中分离
 - **Repository Pattern**: 通用 `IRepository<T>` 接口和实体特定的仓储实现
+- **Pagination Pattern**: 统一的分页实现，包含 `PagedFilterDto` 基类、`PagedResult<T>` 响应容器和仓储中的 `GetFiltered()`/`GetFilteredCount()` 方法
 - **Unit of Work**: `IUnitOfWork` 用于事务管理
 - **Mediator Pattern**: 自定义 `SimpleMediator` 用于解耦请求和处理器
 - **Domain Events**: 实体可以触发领域事件（部分实现）
@@ -129,6 +130,10 @@ dotnet test --collect:"XPlat Code Coverage"
 3. **处理器命名**: 命令/查询处理器遵循 `{CommandName}CommandHandler` 模式
 4. **DTO 位置**: 应用层 DTOs 在功能文件夹中，API DTOs 在 `API/CleanTeeth.API/Dtos/` 中
 5. **验证**: 命令验证器与命令在同一文件夹中，使用 FluentValidation
+6. **分页实现**:
+   - 分页参数: 所有分页查询的 Filter DTO 继承自 `PagedFilterDto` (`CleanTeeth.Application/Utilities/Common/`)
+   - 分页响应: 列表查询返回 `PagedResult<T>`，包含分页元数据（总记录数、当前页码、每页大小）
+   - 仓储方法: 实体仓储实现 `GetFiltered()`（分页数据）和 `GetFilteredCount()`（过滤后总数）方法
 
 ## Important Notes
 
@@ -136,7 +141,11 @@ dotnet test --collect:"XPlat Code Coverage"
 2. **审计字段**: 所有继承自 `Auditable` 的实体自动填充审计字段
 3. **错误处理**: 自定义 `ErrorHandlingMiddleware` 处理领域和验证异常
 4. **后台作业**: `AppointmentsReminderJob` 作为托管服务运行
-5. **分页**: API 端点通过 `HttpContext.InsertPaginationInformationInHeader()` 支持分页
+5. **分页系统**: 统一的分页实现支持所有实体（Patients, Dentists, Appointments, DentalOffices）
+   - **分页参数**: `PagedFilterDto` 基类提供 `Page` (默认1) 和 `PageSize` (默认10) 属性
+   - **分页响应**: `PagedResult<T>` 包含 `Items` (当前页数据)、`TotalCount` (过滤后总数)、`Page` (当前页码)、`PageSize` (每页大小)
+   - **仓储实现**: 每个实体仓储提供 `GetFiltered()` (应用过滤和分页) 和 `GetFilteredCount()` (应用过滤计算总数) 方法
+   - **一致性**: 所有列表查询端点支持 `?Page=1&PageSize=10&Name=...` 等过滤和分页参数
 
 ## Testing Strategy
 

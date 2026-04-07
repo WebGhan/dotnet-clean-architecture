@@ -6,4 +6,5 @@ namespace CleanTeeth.Application.Contracts.Repositories;
 public interface IDentistRepository : IRepository<Dentist>
 {
     Task<IEnumerable<Dentist>> GetFiltered(DentistsFilterDto filter);
+    Task<int> GetFilteredCount(DentistsFilterDto filter);
 }

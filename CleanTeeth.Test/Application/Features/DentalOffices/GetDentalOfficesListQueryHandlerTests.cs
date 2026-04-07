@@ -27,29 +27,39 @@ public class GetDentalOfficesListQueryHandlerTests
             new DentalOffice("Dental Office B"),
         };
 
-        _repository.GetAll().Returns(dentalOffices);
+        _repository.GetFiltered(Arg.Any<DentalOfficesFilterDto>()).Returns(dentalOffices);
+        _repository.GetFilteredCount(Arg.Any<DentalOfficesFilterDto>()).Returns(Task.FromResult(dentalOffices.Count));
 
         var expected = dentalOffices.Select(d => d.ToDto()).ToList();
 
         var result = await _handler.Handle(new GetDentalOfficesListQuery());
 
-        Assert.AreEqual(expected.Count, result.Count);
+        Assert.AreEqual(expected.Count, result.Items.Count);
+        Assert.AreEqual(dentalOffices.Count, result.TotalCount);
+        Assert.AreEqual(1, result.Page);
+        Assert.AreEqual(10, result.PageSize);
 
         for (int i = 0; i < expected.Count; i++)
         {
-            Assert.AreEqual(expected[i].Id, result[i].Id);
-            Assert.AreEqual(expected[i].Name, result[i].Name);
+            Assert.AreEqual(expected[i].Id, result.Items[i].Id);
+            Assert.AreEqual(expected[i].Name, result.Items[i].Name);
         }
     }
 
     [TestMethod]
     public async Task Handle_WhenThereAreNoDentalOffices_ReturnsListOfNothing()
     {
-        _repository.GetAll().Returns(new List<DentalOffice>());
-        
+        var emptyList = new List<DentalOffice>();
+
+        _repository.GetFiltered(Arg.Any<DentalOfficesFilterDto>()).Returns(emptyList);
+        _repository.GetFilteredCount(Arg.Any<DentalOfficesFilterDto>()).Returns(Task.FromResult(0));
+
         var result = await _handler.Handle(new GetDentalOfficesListQuery());
-        
+
         Assert.IsNotNull(result);
-        Assert.AreEqual(0, result.Count);
+        Assert.AreEqual(0, result.Items.Count);
+        Assert.AreEqual(0, result.TotalCount);
+        Assert.AreEqual(1, result.Page);
+        Assert.AreEqual(10, result.PageSize);
     }
 }

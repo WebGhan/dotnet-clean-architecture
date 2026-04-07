@@ -23,7 +23,7 @@ public class GetPatientsListCommandHandlerTests
     public async Task Handle_ValidQuery_ReturnsPatientsPaginated()
     {
         var page = 1;
-        var recordsPerPage = 2;
+        var pageSize = 2;
 
         var patient1 = new Patient("Patient 1", new Email("patient1@example.com"));
         var patient2 = new Patient("Patient 2", new Email("patient2@example.com"));
@@ -32,12 +32,12 @@ public class GetPatientsListCommandHandlerTests
 
         _repository.GetFiltered(Arg.Any<PatientsFilterDto>()).Returns(Task.FromResult(patients));
 
-        _repository.GetTotalAmountOfRecords().Returns(Task.FromResult(10));
+        _repository.GetFilteredCount(Arg.Any<PatientsFilterDto>()).Returns(Task.FromResult(10));
 
-        var query = new GetPatientsListQuery { Page = page, RecordsPerPage = recordsPerPage };
+        var query = new GetPatientsListQuery { Page = page, PageSize = pageSize };
         var result = await _handler.Handle(query);
 
-        Assert.AreEqual(10, result.TotalAmountOfRecords);
+        Assert.AreEqual(10, result.TotalCount);
     }
 
     [TestMethod]
@@ -47,12 +47,12 @@ public class GetPatientsListCommandHandlerTests
 
         _repository.GetFiltered(Arg.Any<PatientsFilterDto>()).Returns(Task.FromResult(patients));
 
-        _repository.GetTotalAmountOfRecords().Returns(Task.FromResult(0));
+        _repository.GetFilteredCount(Arg.Any<PatientsFilterDto>()).Returns(Task.FromResult(0));
         
-        var query = new GetPatientsListQuery { Page = 1, RecordsPerPage = 5 };
+        var query = new GetPatientsListQuery { Page = 1, PageSize = 5 };
         
         var result = await _handler.Handle(query);
         
-        Assert.AreEqual(0, result.TotalAmountOfRecords);
+        Assert.AreEqual(0, result.TotalCount);
     }
 }

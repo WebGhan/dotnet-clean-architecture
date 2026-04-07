@@ -5,6 +5,7 @@ using CleanTeeth.Application.Features.DentalOffices.Commands.UpdateDentalOffice;
 using CleanTeeth.Application.Features.DentalOffices.Queries.GetDentalOfficeDetail;
 using CleanTeeth.Application.Features.DentalOffices.Queries.GetDentalOfficesList;
 using CleanTeeth.Application.Utilities;
+using CleanTeeth.Application.Utilities.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanTeeth.API.Controllers;
@@ -22,9 +23,8 @@ public class DentalOfficesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<DentalOfficesListDto>>> Get()
+    public async Task<ActionResult<PagedResult<DentalOfficesListDto>>> Get([FromQuery] GetDentalOfficesListQuery query)
     {
-        var query = new GetDentalOfficesListQuery();
         var result = await _mediator.Send(query);
         return result;
     }

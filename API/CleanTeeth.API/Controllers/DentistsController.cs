@@ -1,11 +1,11 @@
 using CleanTeeth.API.Dtos.Dentists;
-using CleanTeeth.API.Utilities;
 using CleanTeeth.Application.Features.Dentists.Commands.CreateDentist;
 using CleanTeeth.Application.Features.Dentists.Commands.DeleteDentist;
 using CleanTeeth.Application.Features.Dentists.Commands.UpdateDentist;
 using CleanTeeth.Application.Features.Dentists.Queries.GetDentistsDetail;
 using CleanTeeth.Application.Features.Dentists.Queries.GetDentistsList;
 using CleanTeeth.Application.Utilities;
+using CleanTeeth.Application.Utilities.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanTeeth.API.Controllers;
@@ -29,11 +29,10 @@ public class DentistsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<DentistsListDto>>> Get([FromQuery] GetDentistsListQuery query)
+    public async Task<ActionResult<PagedResult<DentistsListDto>>> Get([FromQuery] GetDentistsListQuery query)
     {
         var result = await _mediator.Send(query);
-        HttpContext.InsertPaginationInformationInHeader(result.TotalAmountOfRecords);
-        return result.Elements;
+        return result;
     }
 
     [HttpPost]

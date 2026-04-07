@@ -5,6 +5,7 @@ using CleanTeeth.Application.Features.Appointments.Commands.CreateAppointment;
 using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDetail;
 using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentsList;
 using CleanTeeth.Application.Utilities;
+using CleanTeeth.Application.Utilities.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanTeeth.API.Controllers;
@@ -32,9 +33,10 @@ public class AppointmentsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<AppointmentsListDto>>> Get([FromQuery] GetAppointmentsListQuery query)
+    public async Task<ActionResult<PagedResult<AppointmentsListDto>>> Get([FromQuery] GetAppointmentsListQuery query)
     {
-        return await _mediator.Send(query);
+        var result = await _mediator.Send(query);
+        return result;
     }
 
     [HttpPost]
