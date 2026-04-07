@@ -18,7 +18,7 @@ public static class RegisterPersistenceServices
         services.AddScoped<IDentistRepository, DentistRepository>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
-        services.AddScoped<IUnitOfWork, UnitOfWorkEFCore>();
+        services.AddScoped<IUnitOfWork, UnitOfWorkEfCore>();
         
         return services;
     }
