@@ -11,4 +11,6 @@ public interface IAppointmentRepository : IRepository<Appointment>
 
     Task<IEnumerable<Appointment>> GetFiltered(AppointmentsFilterDto appointmentsFilterDto);
     Task<int> GetFilteredCount(AppointmentsFilterDto appointmentsFilterDto);
+    Task<IEnumerable<Appointment>> GetByPatientIdAsync(Guid patientId);
+    Task<Dictionary<Guid, List<Appointment>>> GetByPatientIdsAsync(IEnumerable<Guid> patientIds);
 }

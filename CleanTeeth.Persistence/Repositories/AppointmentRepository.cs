@@ -82,4 +82,36 @@ public class AppointmentRepository : Repository<Appointment>, IAppointmentReposi
 
         return queryable;
     }
+
+    public async Task<IEnumerable<Appointment>> GetByPatientIdAsync(Guid patientId)
+    {
+        return await _dbContext.Appointments
+            .Where(x => x.PatientId == patientId)
+            .Include(x => x.Patient)
+            .Include(x => x.Dentist)
+            .Include(x => x.DentalOffice)
+            .OrderBy(x => x.TimeInterval.Start)
+            .ToListAsync();
+    }
+
+    public async Task<Dictionary<Guid, List<Appointment>>> GetByPatientIdsAsync(IEnumerable<Guid> patientIds)
+    {
+        var patientIdList = patientIds.ToList();
+        if (!patientIdList.Any())
+        {
+            return new Dictionary<Guid, List<Appointment>>();
+        }
+
+        var appointments = await _dbContext.Appointments
+            .Where(x => patientIdList.Contains(x.PatientId))
+            .Include(x => x.Patient)
+            .Include(x => x.Dentist)
+            .Include(x => x.DentalOffice)
+            .OrderBy(x => x.TimeInterval.Start)
+            .ToListAsync();
+
+        return appointments
+            .GroupBy(x => x.PatientId)
+            .ToDictionary(g => g.Key, g => g.ToList());
+    }
 }

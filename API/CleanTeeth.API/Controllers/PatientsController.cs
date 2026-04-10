@@ -4,6 +4,7 @@ using CleanTeeth.Application.Features.Patients.Commands.DeletePatient;
 using CleanTeeth.Application.Features.Patients.Commands.UpdatePatient;
 using CleanTeeth.Application.Features.Patients.Queries.GetPatientDetail;
 using CleanTeeth.Application.Features.Patients.Queries.GetPatientsList;
+using CleanTeeth.Application.Features.Patients.Queries.GetPatientsWithAppointmentsList;
 using CleanTeeth.Application.Utilities;
 using CleanTeeth.Application.Utilities.Common;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,13 @@ public class PatientsController : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<PagedResult<PatientListDto>>> GetListAsync([FromQuery] GetPatientsListQuery query)
+    {
+        var result = await _mediator.Send(query);
+        return result;
+    }
+
+    [HttpGet("with-appointments")]
+    public async Task<ActionResult<PagedResult<PatientWithAppointmentsListDto>>> GetWithAppointmentsAsync([FromQuery] GetPatientsWithAppointmentsListQuery query)
     {
         var result = await _mediator.Send(query);
         return result;
