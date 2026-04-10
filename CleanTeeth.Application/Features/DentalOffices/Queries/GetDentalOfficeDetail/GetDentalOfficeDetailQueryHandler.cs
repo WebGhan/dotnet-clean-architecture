@@ -15,7 +15,7 @@ public class GetDentalOfficeDetailQueryHandler : IRequestHandler<GetDentalOffice
 
     public async Task<DentalOfficeDetailDto> Handle(GetDentalOfficeDetailQuery request)
     {
-        var dentalOffice = await _repository.GetById(request.Id);
+        var dentalOffice = await _repository.GetByIdWithAssignments(request.Id);
 
         if (dentalOffice is null)
         {

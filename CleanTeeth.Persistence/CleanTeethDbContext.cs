@@ -52,4 +52,5 @@ public class CleanTeethDbContext : DbContext
     public DbSet<Patient> Patients { get; set; }
     public DbSet<Dentist> Dentists { get; set; }
     public DbSet<Appointment> Appointments { get; set; }
+    public DbSet<DentistAssignment> DentistAssignments { get; set; }
 }

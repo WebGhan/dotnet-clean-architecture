@@ -9,6 +9,8 @@ public class Dentist: Auditable
     public Guid Id { get; private set; }
     public string Name { get; private set; } = null!;
     public Email Email { get; private set; } = null!;
+    private readonly List<DentistAssignment> _assignments = new();
+    public IReadOnlyCollection<DentistAssignment> Assignments => _assignments.AsReadOnly();
 
     public Dentist()
     {

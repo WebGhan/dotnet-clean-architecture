@@ -40,4 +40,12 @@ public class DentalOfficeRepository: Repository<DentalOffice>, IDentalOfficeRepo
 
         return queryable;
     }
+
+    public async Task<DentalOffice?> GetByIdWithAssignments(Guid id)
+    {
+        return await _dbContext.DentalOffices
+            .Include(o => o.Assignments)
+                .ThenInclude(a => a.Dentist)
+            .FirstOrDefaultAsync(o => o.Id == id);
+    }
 }

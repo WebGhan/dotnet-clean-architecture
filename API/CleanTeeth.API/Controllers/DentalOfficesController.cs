@@ -1,4 +1,5 @@
 using CleanTeeth.API.Dtos.DentalOffices;
+using CleanTeeth.Application.Features.DentalOffices.Commands.AssignDentist;
 using CleanTeeth.Application.Features.DentalOffices.Commands.CreateDentalOffice;
 using CleanTeeth.Application.Features.DentalOffices.Commands.DeleteDentalOffice;
 using CleanTeeth.Application.Features.DentalOffices.Commands.UpdateDentalOffice;
@@ -64,5 +65,17 @@ public class DentalOfficesController : ControllerBase
         var command = new DeleteDentalOfficeCommand { Id = id };
         await _mediator.Send(command);
         return NoContent();
+    }
+
+    [HttpPost("{id}/assign-dentist")]
+    public async Task<IActionResult> AssignDentistAsync(Guid id, [FromBody] AssignDentistDto assignDentistDto)
+    {
+        var command = new AssignDentistToDentalOfficeCommand
+        {
+            DentalOfficeId = id,
+            DentistId = assignDentistDto.DentistId
+        };
+        await _mediator.Send(command);
+        return Ok();
     }
 }

@@ -7,4 +7,5 @@ public interface IDentalOfficeRepository : IRepository<DentalOffice>
 {
     Task<IEnumerable<DentalOffice>> GetFiltered(DentalOfficesFilterDto filter);
     Task<int> GetFilteredCount(DentalOfficesFilterDto filter);
+    Task<DentalOffice?> GetByIdWithAssignments(Guid id);
 }
