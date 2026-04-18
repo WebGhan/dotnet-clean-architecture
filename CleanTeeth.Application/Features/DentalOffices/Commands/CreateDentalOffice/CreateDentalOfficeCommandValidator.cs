@@ -7,6 +7,6 @@ public class CreateDentalOfficeCommandValidator: AbstractValidator<CreateDentalO
     public CreateDentalOfficeCommandValidator()
     {
         RuleFor(p => p.Name)
-            .NotEmpty().WithMessage("The filed {PropertyName} is required.");
+            .NotEmpty().WithMessage("The field {PropertyName} is required.");
     }
 }

@@ -8,6 +8,6 @@ public class UpdateDentalOfficeCommandValidator: AbstractValidator<UpdateDentalO
     {
         RuleFor(p => p.Name)
             .NotEmpty()
-            .WithMessage("The filed {PropertyName} is required.");
+            .WithMessage("The field {PropertyName} is required.");
     }
 }
